@@ -9,7 +9,7 @@ import SwiftUI
 
 @MainActor
 struct ContentView: View {
-    @State private var urlString: String = ""
+    @State private var urlString: String = "https://"
     @State private var httpMethod: String = "GET"
     @State private var responseHeaders: String = ""
     @State private var responseBody: String = ""
@@ -18,6 +18,10 @@ struct ContentView: View {
         VStack {
             Spacer()
             TextField("URL", text: $urlString)
+                .keyboardType(.URL)
+                .textContentType(.URL)
+                .textCase(.lowercase)
+                .autocapitalization(.none)
             HStack {
                 Text("HTTP Method")
                 Menu("GET") {
@@ -41,8 +45,10 @@ struct ContentView: View {
                 .padding()
             Text("Response:")
             TextEditor(text: $responseHeaders)
+                .font(.system(.body, design: .monospaced))
             Text("Response body:")
             TextEditor(text: $responseBody)
+                .font(.system(.body, design: .monospaced))
         }
     }
 }
